@@ -1,0 +1,101 @@
+[gd_scene load_steps=23 format=3 uid="uid://cw7vkk4sidpva"]
+
+[ext_resource type="Texture2D" uid="uid://bvvbc6knox7vv" path="res://assets/Fundo.png" id="1_105ax"]
+[ext_resource type="Script" path="res://scripts/start.gd" id="1_kea76"]
+[ext_resource type="Texture2D" uid="uid://dehhsxeb42l1q" path="res://assets/menu_icons/Jogar_hover.png" id="2_g3svk"]
+[ext_resource type="Texture2D" uid="uid://dvgc7okdi6n6k" path="res://assets/menu_icons/Jogar_base.png" id="3_txir6"]
+[ext_resource type="Texture2D" uid="uid://5skkcpiru465" path="res://assets/menu_icons/Sair_hover.png" id="4_0q6ha"]
+[ext_resource type="Texture2D" uid="uid://duvo4rt63ecw7" path="res://assets/menu_icons/Jogar_pressed.png" id="4_10d2l"]
+[ext_resource type="Texture2D" uid="uid://d0bk717f7mg2c" path="res://assets/menu_icons/Sair_base.png" id="5_bbyfh"]
+[ext_resource type="Texture2D" uid="uid://hw18hhim6vli" path="res://assets/menu_icons/Como Jogar_hover.png" id="6_3l3ko"]
+[ext_resource type="Texture2D" uid="uid://jthw10od48jd" path="res://assets/menu_icons/Titulo.png" id="6_u2drq"]
+[ext_resource type="Texture2D" uid="uid://073hsklphn6v" path="res://assets/menu_icons/Sair_pressed.png" id="7_2ajsx"]
+[ext_resource type="Texture2D" uid="uid://c5vdfo641vryv" path="res://assets/menu_icons/Como Jogar _ pressed.png" id="7_fket3"]
+[ext_resource type="Texture2D" uid="uid://bunrtvimalox3" path="res://assets/menu_icons/Como Jogar.png" id="8_7l857"]
+[ext_resource type="PackedScene" uid="uid://da5tsnqmf160r" path="res://scenes/intro.tscn" id="10_eqjux"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_84po3"]
+texture = ExtResource("2_g3svk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_od7it"]
+texture = ExtResource("4_10d2l")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k8hsl"]
+texture = ExtResource("3_txir6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ths66"]
+texture = ExtResource("6_3l3ko")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qrgps"]
+texture = ExtResource("7_fket3")
+texture_margin_top = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujkmd"]
+texture = ExtResource("8_7l857")
+texture_margin_top = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kdd0n"]
+texture = ExtResource("4_0q6ha")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jpenc"]
+texture = ExtResource("7_2ajsx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8da21"]
+texture = ExtResource("5_bbyfh")
+
+[node name="Start" type="Node"]
+script = ExtResource("1_kea76")
+
+[node name="Fundo" type="Sprite2D" parent="."]
+position = Vector2(451, 413)
+scale = Vector2(0.883789, 0.883789)
+texture = ExtResource("1_105ax")
+
+[node name="Jogar" type="Button" parent="."]
+offset_left = 337.0
+offset_top = 355.0
+offset_right = 1181.0
+offset_bottom = 730.0
+scale = Vector2(0.3, 0.3)
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxTexture_84po3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_od7it")
+theme_override_styles/normal = SubResource("StyleBoxTexture_k8hsl")
+
+[node name="ComoJogar" type="Button" parent="."]
+offset_left = 263.0
+offset_top = 493.0
+offset_right = 670.0
+offset_bottom = 630.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_ths66")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qrgps")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ujkmd")
+
+[node name="Sair" type="Button" parent="."]
+offset_left = 371.0
+offset_top = 661.0
+offset_right = 991.0
+offset_bottom = 961.0
+scale = Vector2(0.3, 0.3)
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxTexture_kdd0n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jpenc")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8da21")
+
+[node name="Titulo" type="Sprite2D" parent="."]
+position = Vector2(457.25, 170.614)
+scale = Vector2(0.621582, 0.621582)
+texture = ExtResource("6_u2drq")
+
+[node name="VideoStreamPlayer" parent="." instance=ExtResource("10_eqjux")]
+visible = false
+offset_left = -733.0
+offset_top = -406.0
+offset_right = 1187.0
+offset_bottom = 682.0
+
+[connection signal="pressed" from="Jogar" to="." method="_on_jogar_pressed"]
+[connection signal="pressed" from="ComoJogar" to="." method="_on_como_jogar_pressed"]
+[connection signal="pressed" from="Sair" to="." method="_on_sair_pressed"]

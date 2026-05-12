@@ -1,0 +1,130 @@
+[gd_scene load_steps=16 format=3 uid="uid://bu2p7nrpj8nse"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_wmrp2"]
+[ext_resource type="Texture2D" uid="uid://dh1oyfye4m311" path="res://assets/menu_side/menu_fixo_porta.png" id="2_8n48r"]
+[ext_resource type="Texture2D" uid="uid://bs7c4ioc0vlsy" path="res://assets/menu_side/menu_fixo_som.png" id="3_s7dsb"]
+[ext_resource type="Texture2D" uid="uid://pjsoftomksne" path="res://assets/menu_side/menu_fixo.png" id="4_dhw6a"]
+[ext_resource type="Texture2D" uid="uid://canx28sbqw8k1" path="res://assets/menu_side/volume.png" id="5_cyhkc"]
+[ext_resource type="Texture2D" uid="uid://cjaiv1weu5qc0" path="res://assets/menu_side/muted.png" id="6_ubbhg"]
+[ext_resource type="Texture2D" uid="uid://cs30eg4e8iohd" path="res://assets/menu_side/door.png" id="7_hvt6n"]
+[ext_resource type="Texture2D" uid="uid://dlqq68eu8h80w" path="res://assets/menu_side/door2.png" id="8_i2ox2"]
+[ext_resource type="Texture2D" uid="uid://bsfg876okud0c" path="res://assets/menu_side/seta_back.png" id="9_enyfx"]
+[ext_resource type="Texture2D" uid="uid://csmihws1m1v84" path="res://assets/menu_side/Leitor.png" id="10_ca6um"]
+[ext_resource type="Texture2D" uid="uid://m88vru2n0lcf" path="res://assets/menu_side/slider_vol2.png" id="10_qk0kt"]
+[ext_resource type="Texture2D" uid="uid://bagatkffvkmtj" path="res://assets/menu_side/slider_vol.png" id="11_dp1ry"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_at4lh"]
+texture = ExtResource("11_dp1ry")
+expand_margin_left = 17.0
+expand_margin_right = 19.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xx131"]
+texture = ExtResource("11_dp1ry")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q7158"]
+texture = ExtResource("11_dp1ry")
+
+[node name="Menu" type="Node2D"]
+z_index = 5
+position = Vector2(0, 60)
+script = ExtResource("1_wmrp2")
+
+[node name="MenuFixoPorta" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(48, 331.5)
+scale = Vector2(1, 0.996)
+texture = ExtResource("2_8n48r")
+
+[node name="MenuFixoSom" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(46.875, 338.227)
+scale = Vector2(0.992, 0.983)
+texture = ExtResource("3_s7dsb")
+
+[node name="FundoMenu" type="Sprite2D" parent="."]
+position = Vector2(35, 330)
+texture = ExtResource("4_dhw6a")
+
+[node name="Menu" type="Sprite2D" parent="."]
+
+[node name="button_volume" type="Button" parent="Menu"]
+offset_left = 4.0
+offset_top = 263.0
+offset_right = 62.0
+offset_bottom = 322.0
+focus_mode = 0
+flat = true
+
+[node name="Volume_ON" type="Sprite2D" parent="Menu/button_volume"]
+position = Vector2(29, 30)
+texture = ExtResource("5_cyhkc")
+
+[node name="Volume_OFF" type="Sprite2D" parent="Menu/button_volume"]
+visible = false
+position = Vector2(29, 31)
+texture = ExtResource("6_ubbhg")
+
+[node name="button_sair" type="Button" parent="Menu"]
+offset_left = 5.0
+offset_top = 370.0
+offset_right = 61.0
+offset_bottom = 432.0
+focus_mode = 0
+flat = true
+
+[node name="Normal" type="Sprite2D" parent="Menu/button_sair"]
+position = Vector2(28, 31)
+texture = ExtResource("7_hvt6n")
+
+[node name="Aberta" type="Sprite2D" parent="Menu/button_sair"]
+visible = false
+position = Vector2(29, 30)
+texture = ExtResource("8_i2ox2")
+
+[node name="Voltar" type="Sprite2D" parent="Menu/button_sair"]
+visible = false
+position = Vector2(32, 37)
+texture = ExtResource("9_enyfx")
+
+[node name="VSlider" type="VSlider" parent="Menu"]
+offset_left = 75.0
+offset_top = 181.0
+offset_right = 116.0
+offset_bottom = 482.0
+theme_override_icons/grabber = ExtResource("10_qk0kt")
+theme_override_icons/grabber_highlight = ExtResource("10_qk0kt")
+theme_override_icons/grabber_disabled = ExtResource("10_qk0kt")
+theme_override_styles/slider = SubResource("StyleBoxTexture_at4lh")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_xx131")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_q7158")
+min_value = -20.0
+max_value = 5.0
+step = 0.0
+
+[node name="Leitor" type="Sprite2D" parent="."]
+position = Vector2(-10000, 160)
+scale = Vector2(0.79, 0.86)
+texture = ExtResource("10_ca6um")
+
+[node name="texto" type="Label" parent="Leitor"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -49.0
+offset_top = -14.0
+offset_right = 44.0
+offset_bottom = 9.0
+text = "VOLUME"
+horizontal_alignment = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Timer_porta" type="Timer" parent="."]
+
+[node name="Timer_volume" type="Timer" parent="."]
+
+[connection signal="mouse_entered" from="Menu/button_volume" to="." method="_on_button_volume_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/button_volume" to="." method="_on_button_volume_mouse_exited"]
+[connection signal="pressed" from="Menu/button_volume" to="." method="_on_button_volume_pressed"]
+[connection signal="mouse_entered" from="Menu/button_sair" to="." method="_on_button_sair_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/button_sair" to="." method="_on_button_sair_mouse_exited"]
+[connection signal="pressed" from="Menu/button_sair" to="." method="_on_button_sair_pressed"]
+[connection signal="value_changed" from="Menu/VSlider" to="." method="_on_v_slider_value_changed"]

@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://da5tsnqmf160r"]
+
+[ext_resource type="Script" path="res://scripts/intro.gd" id="1_l03lp"]
+[ext_resource type="VideoStream" path="res://assets/Intro/IntroNinoEdu.ogv" id="1_l6m5x"]
+
+[sub_resource type="Animation" id="Animation_wsarj"]
+resource_name = "FADE OUT"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333, 3.4632),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8tyg7"]
+_data = {
+"FADE OUT": SubResource("Animation_wsarj")
+}
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer"]
+z_index = 10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -740.0
+offset_top = -410.0
+offset_right = 1180.0
+offset_bottom = 678.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+stream = ExtResource("1_l6m5x")
+autoplay = true
+script = ExtResource("1_l03lp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8tyg7")
+}

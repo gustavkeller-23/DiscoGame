@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://btqos2gutvpfe"]
+
+[ext_resource type="Texture2D" uid="uid://bvvbc6knox7vv" path="res://assets/Fundo.png" id="1_5vden"]
+[ext_resource type="Script" path="res://scRIPTS/como_jogar.gd" id="1_ylryp"]
+[ext_resource type="PackedScene" uid="uid://dwrk6rkqh8jvj" path="res://scenes/table.tscn" id="2_1kris"]
+[ext_resource type="Texture2D" uid="uid://t5l522vjjsst" path="res://assets/Como Jogar/seta.png" id="4_3rh3c"]
+[ext_resource type="Texture2D" uid="uid://1an4ivjvfso6" path="res://assets/Como Jogar/SetaBaixo.png" id="5_4xoi7"]
+[ext_resource type="Texture2D" uid="uid://cs87nl1pcc5fr" path="res://assets/Como Jogar/SetaCima.png" id="6_2fdgj"]
+[ext_resource type="AudioStream" uid="uid://dhuc1sc7hlhg2" path="res://assets/Audios/coin.mp3" id="7_xbfvm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kx0oo"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3rh3c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4xoi7")
+}],
+"loop": true,
+"name": &"toBot",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3rh3c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2fdgj")
+}],
+"loop": true,
+"name": &"toTop",
+"speed": 3.0
+}]
+
+[node name="ComoJogar" type="Node2D"]
+script = ExtResource("1_ylryp")
+
+[node name="Fundo" type="Sprite2D" parent="."]
+position = Vector2(451, 413)
+scale = Vector2(0.883789, 0.883789)
+texture = ExtResource("1_5vden")
+
+[node name="Table" parent="." instance=ExtResource("2_1kris")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 331.0
+offset_top = 411.0
+offset_right = 649.0
+offset_bottom = 533.0
+theme_override_font_sizes/font_size = 100
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Seta" type="AnimatedSprite2D" parent="."]
+position = Vector2(486, 290)
+scale = Vector2(0.320408, 0.320408)
+sprite_frames = SubResource("SpriteFrames_kx0oo")
+animation = &"toBot"
+
+[node name="Acertou" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_xbfvm")

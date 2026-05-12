@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bufnjm1d83eca"]
+
+[ext_resource type="PackedScene" uid="uid://dwrk6rkqh8jvj" path="res://scenes/table.tscn" id="1_h1d61"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_oygb0"]
+[ext_resource type="Texture2D" uid="uid://bvvbc6knox7vv" path="res://assets/Fundo.png" id="2_rnjdu"]
+[ext_resource type="AudioStream" uid="uid://dxu0v3uagxu7p" path="res://assets/Audios/error.mp3" id="5_3v6bf"]
+[ext_resource type="AudioStream" uid="uid://dhuc1sc7hlhg2" path="res://assets/Audios/coin.mp3" id="5_nalgl"]
+[ext_resource type="Script" path="res://scripts/pontos.gd" id="6_3lrcd"]
+[ext_resource type="PackedScene" uid="uid://c67fp43edrnm2" path="res://scenes/winEnd.tscn" id="7_gepeg"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_oygb0")
+
+[node name="Fundo" type="Sprite2D" parent="."]
+position = Vector2(451, 413)
+scale = Vector2(0.883789, 0.883789)
+texture = ExtResource("2_rnjdu")
+
+[node name="Table" parent="." instance=ExtResource("1_h1d61")]
+
+[node name="TimerQuestion" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="ChangeSetup" type="Timer" parent="."]
+
+[node name="Errou" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3v6bf")
+
+[node name="Acertou" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_nalgl")
+
+[node name="Silaba_Sound" type="AudioStreamPlayer" parent="."]
+
+[node name="Silaba" type="Label" parent="."]
+visible = false
+offset_left = 380.0
+offset_top = 320.0
+offset_right = 599.0
+offset_bottom = 457.0
+theme_override_font_sizes/font_size = 100
+text = "QUA"
+
+[node name="Pontos" type="Label" parent="."]
+offset_left = 785.0
+offset_top = 24.0
+offset_right = 825.0
+offset_bottom = 47.0
+text = "100"
+script = ExtResource("6_3lrcd")
+
+[node name="WinEnd" parent="." instance=ExtResource("7_gepeg")]
+
+[connection signal="timeout" from="TimerQuestion" to="." method="_on_question_timeout"]
+[connection signal="timeout" from="ChangeSetup" to="." method="_on_change_setup_timeout"]
