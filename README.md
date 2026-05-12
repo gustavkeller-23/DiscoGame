@@ -81,6 +81,14 @@ Este projeto foi desenvolvido para prática e aprendizado envolvendo:
 - Criação de interfaces
 - Mecânicas de gameplay
 
+## Benefícios
+
+Este projeto buscou estabelecer algumas regras para maior aprendizado:
+
+- Utilizou esquemas de gamificação como Pontos e Medalhas.
+- Utiliza-se da troca e repetição para estimular os alumos.
+- Aborda não só o conhecimento dos alunos, mas reflexo e coordenação motora.
+
 ---
 
 ## 👨‍💻 Autor
