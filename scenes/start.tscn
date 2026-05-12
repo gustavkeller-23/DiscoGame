@@ -69,6 +69,7 @@ offset_left = 263.0
 offset_top = 493.0
 offset_right = 670.0
 offset_bottom = 630.0
+focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxTexture_ths66")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_qrgps")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ujkmd")

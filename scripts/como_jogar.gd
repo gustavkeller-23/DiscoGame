@@ -8,6 +8,7 @@ signal greenButton
 var arraySilabas = [0,1,2,3]
 var silabaDri = []
 var pode_responder = true
+var parte = 1
 
 var silaba_ativa_idx_direcao: int = -1  # índice 0-3 (qual direção é a correta)
 var aguardando_resposta: bool = false
@@ -22,27 +23,35 @@ func _ready() -> void:
 	
 	$Label.text = silabaDri[0]
 	$Seta.play("toTop")
-	if Input.is_action_just_pressed("top_button"):
-		_acerto()
-		Parte2()
-
 
 
 func Parte2():
+	$Label.text = ""
+	$Seta.play("default")
 	await get_tree().create_timer(3).timeout
 	$Label.text = silabaDri[2]
 	$Seta.play("toBot")
-	if Input.is_action_just_pressed("bottom_button"):
-		_acerto()
 
+
+func Parte3():
+	await get_tree().create_timer(3).timeout
+	get_tree().change_scene_to_file("res://scenes/start.tscn")
+	
 
 func _process(delta: float) -> void:
 	if not pode_responder:
 		return
 	if Input.is_action_just_pressed("bottom_button"):
 		processar_resposta(2)
+		if parte == 2:
+			_acerto()
+			Parte3()
 	elif Input.is_action_just_pressed("top_button"):
 		processar_resposta(0)
+		if parte == 1:
+			_acerto()
+			parte = 2
+			Parte2()
 	elif Input.is_action_just_pressed("left_button"):
 		processar_resposta(3)
 	elif Input.is_action_just_pressed("right_button"):
@@ -50,8 +59,6 @@ func _process(delta: float) -> void:
 	
 	if acertos == 2:
 		acertos = acertos + 1
-		await get_tree().create_timer(3).timeout
-		get_tree().change_scene_to_file("res://scenes/start.tscn")
 
 
 func processar_resposta(resposta):
