@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_pressed("right_button"):
 		processar_resposta(1)
 	
-	if acertos == 2:
+	if acertos == 10:
 		acertos = acertos + 1
 		$TimerQuestion.stop()
 		$ChangeSetup.stop()
