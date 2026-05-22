@@ -93,17 +93,17 @@ func formularArray():
 
 
 func definirImagens():
-	var imagens1 = Global.array_silabas[arraySilabas[0]].imagens
-	var imagens2 = Global.array_silabas[arraySilabas[1]].imagens
-	var imagens3 = Global.array_silabas[arraySilabas[2]].imagens
-	var imagens4 = Global.array_silabas[arraySilabas[3]].imagens
+	var imagens1 = Global.array_dicionario[arraySilabas[0]].imagens
+	var imagens2 = Global.array_dicionario[arraySilabas[1]].imagens
+	var imagens3 = Global.array_dicionario[arraySilabas[2]].imagens
+	var imagens4 = Global.array_dicionario[arraySilabas[3]].imagens
 	
 	silabaDri.clear()
 	
-	silabaDri.append(Global.array_silabas[arraySilabas[0]].silaba)
-	silabaDri.append(Global.array_silabas[arraySilabas[1]].silaba)
-	silabaDri.append(Global.array_silabas[arraySilabas[2]].silaba)
-	silabaDri.append(Global.array_silabas[arraySilabas[3]].silaba)
+	silabaDri.append(Global.array_dicionario[arraySilabas[0]].silaba)
+	silabaDri.append(Global.array_dicionario[arraySilabas[1]].silaba)
+	silabaDri.append(Global.array_dicionario[arraySilabas[2]].silaba)
+	silabaDri.append(Global.array_dicionario[arraySilabas[3]].silaba)
 	
 	$Table.definirImagens(imagens1, imagens2, imagens3, imagens4)
 
@@ -125,7 +125,7 @@ func averiguarResposta(index):
 		$Pontos.resposta_errada()
 	
 	await get_tree().create_timer(0.6).timeout
-	$Silaba_Sound.stream = Global.array_silabas[arraySilabas[index]].som
+	$Silaba_Sound.stream = load(Global.array_dicionario[arraySilabas[index]].som)
 	$Silaba_Sound.play()
 
 
@@ -165,7 +165,7 @@ func _on_question_timeout() -> void:
 	
 	# texto da sílaba (ajuste conforme sua variável)
 	var arrayNum = arraySilabas.pick_random()
-	label.text = Global.array_silabas[arrayNum].silaba
+	label.text = Global.array_dicionario[arrayNum].silaba
 	
 	# posição na tela (exemplo)
 	label.position = Vector2(380, 320)
