@@ -24,6 +24,8 @@ Menu="*res://scenes/menu.tscn"
 
 window/size/viewport_width=880
 window/size/viewport_height=780
+window/stretch/mode="canvas_items"
+window/stretch/aspect="ignore"
 
 [input]
 
