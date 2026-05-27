@@ -134,8 +134,7 @@ func averiguarResposta(index: int) -> void:
  
 	# Toca o som da sílaba do quadrante pressionado (usa load() local)
 	await get_tree().create_timer(0.6).timeout
-	var som_path = Global.array_dicionario[arraySilabas[index]].som
-	$Silaba_Sound.stream = load(som_path)
+	$Silaba_Sound.stream = Global.array_dicionario[arraySilabas[index]].som
 	$Silaba_Sound.play()
  
  
@@ -189,7 +188,7 @@ func _on_question_timeout() -> void:
  
 	# Toca o som da sílaba sorteada
 	var som_path = Global.array_dicionario[arrayNum_atual].som
-	$Silaba_Sound.stream = load(som_path)
+	$Silaba_Sound.stream = som_path
 	$Silaba_Sound.play()
  
  

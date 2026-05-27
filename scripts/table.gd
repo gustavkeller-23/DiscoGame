@@ -35,11 +35,10 @@ func rightButton():
  
 func definirImagens(img1: Array, img2: Array, img3: Array, img4: Array) -> void:
 	# Cada array é uma lista de dicts {"imagem": "res://..."}, pega sempre o primeiro
-	$UP.texture    = load(img1[0].imagem)
-	$RIGHT.texture = load(img2[0].imagem)
-	$DOWN.texture  = load(img3[0].imagem)
-	$LEFT.texture  = load(img4[0].imagem)
- 
+	$UP.texture    = img1[0]
+	$RIGHT.texture = img2[0]
+	$DOWN.texture  = img3[0]
+	$LEFT.texture  = img4[0]
 	$UP.scale    = Vector2(0.2, 0.2)
 	$RIGHT.scale = Vector2(0.2, 0.2)
 	$LEFT.scale  = Vector2(0.2, 0.2)
