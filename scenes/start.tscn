@@ -91,7 +91,6 @@ scale = Vector2(0.621582, 0.621582)
 texture = ExtResource("6_u2drq")
 
 [node name="VideoStreamPlayer" parent="." instance=ExtResource("10_eqjux")]
-visible = false
 offset_left = -733.0
 offset_top = -406.0
 offset_right = 1187.0

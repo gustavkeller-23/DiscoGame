@@ -100,29 +100,13 @@ func _on_button_volume_mouse_exited():
 func _on_button_sair_pressed() -> void:
 	if telaInicial:
 		$Timer_porta.stop()
-		
-		if OS.has_feature("web"):
-			if Global.TempoDeJogo_Min > 0 or Global.TempoDeJogo_Sec > 3:
-				_fechando = true
-				_postData()
-			else:
-				_fecharJogo() 
-			
-		else:
-			get_tree().quit()
+		_fecharJogo()
 	else:
 		get_tree().change_scene_to_file("res://scenes/start.tscn")
 
 
 func _fecharJogo():
-	if OS.has_feature("web"):
-		AudioServer.set_bus_mute(0, true)
-		var code = """
-			window.parent.postMessage({ type: 'closeGame' }, '*');
-		"""
-		JavaScriptBridge.eval(code)
-	else:
-		get_tree().quit()
+	get_tree().quit()
 
 
 func _on_button_sair_mouse_entered():

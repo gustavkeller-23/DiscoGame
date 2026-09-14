@@ -18,28 +18,97 @@ var acertos: int = 0
 var arrayNum_atual: int = -1
  
  
+# Variáveis para controle de arrastar dos dedos (swipe / drag)
+var touch_start_pos: Vector2 = Vector2.ZERO
+var is_touch_active: bool = false
+var gesture_dispatched: bool = false
+const SWIPE_THRESHOLD: float = 40.0
+
+
 func _ready() -> void:
 	montarTabuleiro()
- 
+
 	$TimerQuestion.wait_time = 3
 	if Global.Dificuldade == 1:
 		$TimerQuestion.start()
- 
+
 	if Global.Dificuldade == 2:
 		$TimerQuestion.start()
 		$ChangeSetup.wait_time = 12
 		$ChangeSetup.start()
- 
+
 	if Global.Dificuldade == 3:
 		$TimerQuestion.start()
 		$ChangeSetup.wait_time = 3.5
 		$ChangeSetup.start()
- 
- 
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not pode_responder:
+		return
+
+	# Suporte a toque na tela (Mobile)
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			touch_start_pos = event.position
+			is_touch_active = true
+			gesture_dispatched = false
+		else:
+			if is_touch_active and not gesture_dispatched:
+				_avaliar_gesto(event.position - touch_start_pos)
+			is_touch_active = false
+			gesture_dispatched = false
+
+	elif event is InputEventScreenDrag:
+		if is_touch_active and not gesture_dispatched:
+			var delta = event.position - touch_start_pos
+			if delta.length() >= SWIPE_THRESHOLD:
+				gesture_dispatched = true
+				_avaliar_gesto(delta)
+
+	# Suporte a arrastar com o mouse (Desktop)
+	elif event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				touch_start_pos = event.position
+				is_touch_active = true
+				gesture_dispatched = false
+			else:
+				if is_touch_active and not gesture_dispatched:
+					_avaliar_gesto(event.position - touch_start_pos)
+				is_touch_active = false
+				gesture_dispatched = false
+
+	elif event is InputEventMouseMotion:
+		if is_touch_active and not gesture_dispatched and (event.button_mask & MOUSE_BUTTON_MASK_LEFT):
+			var delta = event.position - touch_start_pos
+			if delta.length() >= SWIPE_THRESHOLD:
+				gesture_dispatched = true
+				_avaliar_gesto(delta)
+
+
+func _avaliar_gesto(delta: Vector2) -> void:
+	if delta.length() < SWIPE_THRESHOLD:
+		return
+
+	# Determina a direção predominante do arrasto
+	if abs(delta.y) >= abs(delta.x):
+		if delta.y < 0:
+			processar_resposta(0) # Cima
+		else:
+			processar_resposta(2) # Baixo
+	else:
+		if delta.x > 0:
+			processar_resposta(1) # Direita
+		else:
+			processar_resposta(3) # Esquerda
+
+
 func _process(_delta: float) -> void:
 	if not pode_responder:
 		return
- 
+
+	# Controles de teclado para Desktop
 	if Input.is_action_just_pressed("bottom_button"):
 		processar_resposta(2)
 	elif Input.is_action_just_pressed("top_button"):
@@ -48,7 +117,7 @@ func _process(_delta: float) -> void:
 		processar_resposta(3)
 	elif Input.is_action_just_pressed("right_button"):
 		processar_resposta(1)
- 
+
 	if acertos == 10:
 		acertos += 1
 		$TimerQuestion.stop()

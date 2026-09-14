@@ -1,4 +1,5 @@
 extends VideoStreamPlayer
 
 func _ready():
-	$AnimationPlayer.play("FADE OUT")
+	if Global.Intro_tocar == true:
+		$AnimationPlayer.play("FADE OUT")

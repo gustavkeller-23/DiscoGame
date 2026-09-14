@@ -16,6 +16,12 @@ var aguardando_resposta: bool = false
 
 var acertos = 0
 
+# Variáveis para controle de arrastar dos dedos (swipe / drag)
+var touch_start_pos: Vector2 = Vector2.ZERO
+var is_touch_active: bool = false
+var gesture_dispatched: bool = false
+const SWIPE_THRESHOLD: float = 40.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	montarTabuleiro()
@@ -38,24 +44,88 @@ func Parte3():
 	get_tree().change_scene_to_file("res://scenes/start.tscn")
 	
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not pode_responder:
+		return
+
+	# Suporte a toque na tela (Mobile)
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			touch_start_pos = event.position
+			is_touch_active = true
+			gesture_dispatched = false
+		else:
+			if is_touch_active and not gesture_dispatched:
+				_avaliar_gesto(event.position - touch_start_pos)
+			is_touch_active = false
+			gesture_dispatched = false
+
+	elif event is InputEventScreenDrag:
+		if is_touch_active and not gesture_dispatched:
+			var delta = event.position - touch_start_pos
+			if delta.length() >= SWIPE_THRESHOLD:
+				gesture_dispatched = true
+				_avaliar_gesto(delta)
+
+	# Suporte a arrastar com o mouse (Desktop)
+	elif event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				touch_start_pos = event.position
+				is_touch_active = true
+				gesture_dispatched = false
+			else:
+				if is_touch_active and not gesture_dispatched:
+					_avaliar_gesto(event.position - touch_start_pos)
+				is_touch_active = false
+				gesture_dispatched = false
+
+	elif event is InputEventMouseMotion:
+		if is_touch_active and not gesture_dispatched and (event.button_mask & MOUSE_BUTTON_MASK_LEFT):
+			var delta = event.position - touch_start_pos
+			if delta.length() >= SWIPE_THRESHOLD:
+				gesture_dispatched = true
+				_avaliar_gesto(delta)
+
+
+func _avaliar_gesto(delta: Vector2) -> void:
+	if delta.length() < SWIPE_THRESHOLD:
+		return
+
+	if abs(delta.y) >= abs(delta.x):
+		if delta.y < 0:
+			_executar_resposta_tutorial(0) # Cima
+		else:
+			_executar_resposta_tutorial(2) # Baixo
+	else:
+		if delta.x > 0:
+			_executar_resposta_tutorial(1) # Direita
+		else:
+			_executar_resposta_tutorial(3) # Esquerda
+
+
+func _executar_resposta_tutorial(resposta: int) -> void:
+	processar_resposta(resposta)
+	if resposta == 0 and parte == 1:
+		_acerto()
+		parte = 2
+		Parte2()
+	elif resposta == 2 and parte == 2:
+		_acerto()
+		Parte3()
+
+
 func _process(delta: float) -> void:
 	if not pode_responder:
 		return
 	if Input.is_action_just_pressed("bottom_button"):
-		processar_resposta(2)
-		if parte == 2:
-			_acerto()
-			Parte3()
+		_executar_resposta_tutorial(2)
 	elif Input.is_action_just_pressed("top_button"):
-		processar_resposta(0)
-		if parte == 1:
-			_acerto()
-			parte = 2
-			Parte2()
+		_executar_resposta_tutorial(0)
 	elif Input.is_action_just_pressed("left_button"):
-		processar_resposta(3)
+		_executar_resposta_tutorial(3)
 	elif Input.is_action_just_pressed("right_button"):
-		processar_resposta(1)
+		_executar_resposta_tutorial(1)
 	
 	if acertos == 2:
 		acertos = acertos + 1
@@ -82,21 +152,20 @@ func montarTabuleiro():
 	definirImagens()
 
 
-func definirImagens():
-	var imagens1 = Global.array_silabas[arraySilabas[0]].imagens
-	var imagens2 = Global.array_silabas[arraySilabas[1]].imagens
-	var imagens3 = Global.array_silabas[arraySilabas[2]].imagens
-	var imagens4 = Global.array_silabas[arraySilabas[3]].imagens
-	
+func definirImagens() -> void:
+	var imagens1 = Global.array_dicionario[arraySilabas[0]].imagens
+	var imagens2 = Global.array_dicionario[arraySilabas[1]].imagens
+	var imagens3 = Global.array_dicionario[arraySilabas[2]].imagens
+	var imagens4 = Global.array_dicionario[arraySilabas[3]].imagens
+ 
 	silabaDri.clear()
-	
-	silabaDri.append(Global.array_silabas[arraySilabas[0]].silaba)
-	silabaDri.append(Global.array_silabas[arraySilabas[1]].silaba)
-	silabaDri.append(Global.array_silabas[arraySilabas[2]].silaba)
-	silabaDri.append(Global.array_silabas[arraySilabas[3]].silaba)
-	
+	silabaDri.append(Global.array_dicionario[arraySilabas[0]].silaba)
+	silabaDri.append(Global.array_dicionario[arraySilabas[1]].silaba)
+	silabaDri.append(Global.array_dicionario[arraySilabas[2]].silaba)
+	silabaDri.append(Global.array_dicionario[arraySilabas[3]].silaba)
+ 
 	$Table.definirImagens(imagens1, imagens2, imagens3, imagens4)
-
+ 
 
 
 
@@ -113,7 +182,8 @@ func averiguarResposta(index):
 		$Pontos.resposta_errada()
 	
 	await get_tree().create_timer(0.6).timeout
-	$Silaba_Sound.stream = Global.array_silabas[arraySilabas[index]].som
+	var som = Global.array_silabas[arraySilabas[index]].som
+	$Silaba_Sound.stream = load(som)
 	$Silaba_Sound.play()
 
 
