@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://t5l522vjjsst"
-path="res://.godot/imported/seta.png-4b8ac62c722bb8c5061519139533d74b.ctex"
+path="res://.godot/imported/Seta.png-c9786178f84890cc63b8152db7b6d576.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Como Jogar/seta.png"
-dest_files=["res://.godot/imported/seta.png-4b8ac62c722bb8c5061519139533d74b.ctex"]
+source_file="res://assets/Como Jogar/Seta.png"
+dest_files=["res://.godot/imported/Seta.png-c9786178f84890cc63b8152db7b6d576.ctex"]
 
 [params]
 

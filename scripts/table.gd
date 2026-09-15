@@ -34,11 +34,11 @@ func rightButton():
  
  
 func definirImagens(img1: Array, img2: Array, img3: Array, img4: Array) -> void:
-	# Cada array é uma lista de dicts {"imagem": "res://..."}, pega sempre o primeiro
-	$UP.texture    = img1[0]
-	$RIGHT.texture = img2[0]
-	$DOWN.texture  = img3[0]
-	$LEFT.texture  = img4[0]
+	# Escolhe aleatoriamente uma das imagens disponíveis para cada quadrante
+	$UP.texture    = img1.pick_random() if not img1.is_empty() else null
+	$RIGHT.texture = img2.pick_random() if not img2.is_empty() else null
+	$DOWN.texture  = img3.pick_random() if not img3.is_empty() else null
+	$LEFT.texture  = img4.pick_random() if not img4.is_empty() else null
 	$UP.scale    = Vector2(0.2, 0.2)
 	$RIGHT.scale = Vector2(0.2, 0.2)
 	$LEFT.scale  = Vector2(0.2, 0.2)

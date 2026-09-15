@@ -20,6 +20,8 @@ func _ready() -> void:
 		pontos = 180.0
 		perda_por_segundo = perda_por_segundo*2
 
+	atualizar_ui()
+
 
 func _process(delta: float) -> void:
 	# Só perde pontos enquanto a pergunta estiver ativa
@@ -51,9 +53,10 @@ func nova_pergunta():
 
 
 func atualizar_ui():
-	# Exemplo usando uma Label
-	self.text = str("%.2f" % pontos)
+	# Remove os decimais e exibe a pontuação inteira
+	self.text = "Pontos: %d" % int(pontos)
 
 
 func qtdPontos():
 	return pontos
+

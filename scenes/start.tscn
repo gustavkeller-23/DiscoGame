@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cw7vkk4sidpva"]
+[gd_scene load_steps=24 format=3 uid="uid://cw7vkk4sidpva"]
 
 [ext_resource type="Texture2D" uid="uid://bvvbc6knox7vv" path="res://assets/Fundo.png" id="1_105ax"]
 [ext_resource type="Script" path="res://scripts/start.gd" id="1_kea76"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c5vdfo641vryv" path="res://assets/menu_icons/Como Jogar _ pressed.png" id="7_fket3"]
 [ext_resource type="Texture2D" uid="uid://bunrtvimalox3" path="res://assets/menu_icons/Como Jogar.png" id="8_7l857"]
 [ext_resource type="PackedScene" uid="uid://da5tsnqmf160r" path="res://scenes/intro.tscn" id="10_eqjux"]
+[ext_resource type="Texture2D" uid="uid://c72qotogtqtif" path="res://assets/Nino/Nino.png" id="14_xwhg5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_84po3"]
 texture = ExtResource("2_g3svk")
@@ -49,15 +50,15 @@ texture = ExtResource("5_bbyfh")
 script = ExtResource("1_kea76")
 
 [node name="Fundo" type="Sprite2D" parent="."]
-position = Vector2(451, 413)
-scale = Vector2(0.883789, 0.883789)
+position = Vector2(542.75, 413)
+scale = Vector2(1.06299, 0.883789)
 texture = ExtResource("1_105ax")
 
 [node name="Jogar" type="Button" parent="."]
 offset_left = 337.0
-offset_top = 355.0
+offset_top = 360.0
 offset_right = 1181.0
-offset_bottom = 730.0
+offset_bottom = 735.0
 scale = Vector2(0.3, 0.3)
 focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxTexture_84po3")
@@ -66,15 +67,16 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_k8hsl")
 
 [node name="ComoJogar" type="Button" parent="."]
 offset_left = 263.0
-offset_top = 493.0
+offset_top = 521.0
 offset_right = 670.0
-offset_bottom = 630.0
+offset_bottom = 658.0
 focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxTexture_ths66")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_qrgps")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ujkmd")
 
 [node name="Sair" type="Button" parent="."]
+visible = false
 offset_left = 371.0
 offset_top = 661.0
 offset_right = 991.0
@@ -95,6 +97,12 @@ offset_left = -733.0
 offset_top = -406.0
 offset_right = 1187.0
 offset_bottom = 682.0
+
+[node name="Nino" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.772549)
+position = Vector2(954.625, 387.686)
+scale = Vector2(1.3877, 1.377)
+texture = ExtResource("14_xwhg5")
 
 [connection signal="pressed" from="Jogar" to="." method="_on_jogar_pressed"]
 [connection signal="pressed" from="ComoJogar" to="." method="_on_como_jogar_pressed"]

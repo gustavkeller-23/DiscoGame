@@ -112,7 +112,6 @@ var array_dicionario = [
 		"silaba": "LA",
 		"complemento_silaba": "_ _PIS",
 		"imagens": [
-			preload("res://assets/NinoEdu/Imagens/La_Lapis_Foto_1.png"),
 			preload("res://assets/NinoEdu/Imagens/La_Lapis_Foto_2.png"),
 			preload("res://assets/NinoEdu/Imagens/La_Lapis_Imagem_1.png"),
 			preload("res://assets/NinoEdu/Imagens/La_Lapis_Imagem_2.png"),

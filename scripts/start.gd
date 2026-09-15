@@ -26,4 +26,5 @@ func _on_sair_pressed() -> void:
 
 func _on_como_jogar_pressed() -> void:
 	Global.Intro_tocar = false
+	Menu.telaInicial = false
 	get_tree().change_scene_to_file("res://scenes/comoJogar.tscn")

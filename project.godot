@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Disco"
+config/name="Indicabla"
 run/main_scene="res://scenes/start.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Icon.png"
 
 [autoload]
 
@@ -22,7 +22,7 @@ Menu="*res://scenes/menu.tscn"
 
 [display]
 
-window/size/viewport_width=880
+window/size/viewport_width=1080
 window/size/viewport_height=780
 window/stretch/mode="canvas_items"
 window/handheld/orientation=4

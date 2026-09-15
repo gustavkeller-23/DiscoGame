@@ -29,8 +29,8 @@ script = ExtResource("1_doono")
 
 [node name="Fundo" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
-position = Vector2(447, 404)
-scale = Vector2(0.717612, 0.717612)
+position = Vector2(537.768, 412)
+scale = Vector2(0.829178, 0.795724)
 texture = ExtResource("1_msttm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

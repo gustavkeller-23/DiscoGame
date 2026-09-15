@@ -1,6 +1,6 @@
 # DiscoGame 🎵💿
 
-[![Godot Engine](https://img.shields.io/badge/Godot-4.3%2B-478CBF?style=for-the-badge&logo=godotengine&logoColor=white)](https://godotengine.org/)
+[![Godot Engine](https://img.shields.io/badge/Godot-3.0%2B-478CBF?style=for-the-badge&logo=godotengine&logoColor=white)](https://godotengine.org/)
 [![Platform](https://img.shields.io/badge/Plataforma-Android%20%7C%20PC-brightgreen?style=for-the-badge)](https://github.com/gustavkeller-23/DiscoGame)
 [![GDScript](https://img.shields.io/badge/Linguagem-GDScript-blue?style=for-the-badge)](https://docs.godotengine.org/pt-br/4.x/tutorials/scripting/gdscript/gdscript_basics.html)
 [![License](https://img.shields.io/badge/Licen%C3%A7a-Educacional-orange?style=for-the-badge)](#-licen%C3%A7a)
