@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1789485152|2052102064';
+const CACHE_VERSION = '1789769490|39305684';
 /** @type {string} */
 const CACHE_PREFIX = 'Indicabla-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
