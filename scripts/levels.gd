@@ -3,6 +3,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Menu.tocar_intro()
 	if Global.medal[0] == null:
 		$Medal_Easy.visible = false
 	if Global.medal[1] == null:

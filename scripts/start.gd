@@ -5,6 +5,7 @@ signal start
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Menu.telaInicial = true
+	Menu.tocar_intro()
 	if Global.Intro_tocar == false:
 		$VideoStreamPlayer.visible = false
 

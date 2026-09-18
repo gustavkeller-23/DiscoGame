@@ -12,6 +12,7 @@ func _process(delta: float) -> void:
 
 
 func ganhou():
+	Menu.parar_musica()
 	$Fundo.visible = true
 	$AnimationPlayer.play("aparecer")
 	$Win.play()

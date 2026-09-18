@@ -28,6 +28,7 @@ const SWIPE_THRESHOLD: float = 40.0
 # ==============================================================================
 
 func _ready() -> void:
+	Menu.tocar_intro()
 	montarTabuleiro()
 	
 	# Configuração inicial dos elementos visuais

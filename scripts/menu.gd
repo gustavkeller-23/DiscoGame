@@ -1,8 +1,13 @@
 extends Node2D
 
-var master_vol = AudioServer.get_bus_index("Música")
+var musica_intro = preload("res://assets/Audios/Intro.mp3")
+var musica_game = preload("res://assets/Audios/Game.mp3")
+
+enum TipoMusica { NENHUMA, INTRO, GAME }
+var musica_atual: TipoMusica = TipoMusica.NENHUMA
+
 var mouseOnMenu = false
-var som = -7
+var som: float = -7.0
 var volume_ligado = true
 var volume_na_tela = true
 
@@ -21,10 +26,62 @@ var telaInicial: bool = false:
 
 
 func _ready():
-	# Definindo o valor do audio
+	# Configura as trilhas para repetição contínua
+	if musica_intro is AudioStreamMP3:
+		musica_intro.loop = true
+	if musica_game is AudioStreamMP3:
+		musica_game.loop = true
+
+	# Definindo o valor inicial do áudio no slider e no player de música de fundo
 	$Menu/VSlider.value = som
+	if has_node("SomDeFundo"):
+		$SomDeFundo.volume_db = som
+		$SomDeFundo.finished.connect(_on_som_de_fundo_finished)
 	
 	$HTTPRequest.request_completed.connect(_on_request_completed)
+
+
+func _on_som_de_fundo_finished() -> void:
+	if musica_atual != TipoMusica.NENHUMA and has_node("SomDeFundo"):
+		$SomDeFundo.play(0.0)
+
+
+# ==============================================================================
+# CONTROLE DE MÚSICA DE FUNDO
+# ==============================================================================
+
+func tocar_intro() -> void:
+	tocar_musica(TipoMusica.INTRO)
+
+
+func tocar_game() -> void:
+	tocar_musica(TipoMusica.GAME)
+
+
+func parar_musica() -> void:
+	musica_atual = TipoMusica.NENHUMA
+	if has_node("SomDeFundo"):
+		$SomDeFundo.stop()
+
+
+func tocar_musica(tipo: TipoMusica) -> void:
+	if not has_node("SomDeFundo"):
+		return
+
+	# Se a mesma música já estiver tocando (ex: Start <-> ComoJogar <-> Dificuldade), não reinicia
+	if musica_atual == tipo and $SomDeFundo.playing:
+		return
+
+	musica_atual = tipo
+	match tipo:
+		TipoMusica.INTRO:
+			$SomDeFundo.stream = musica_intro
+			$SomDeFundo.play(0.0)
+		TipoMusica.GAME:
+			$SomDeFundo.stream = musica_game
+			$SomDeFundo.play(0.0)
+		TipoMusica.NENHUMA:
+			$SomDeFundo.stop()
 
 
 func _on_request_completed(_result, _response_code, _headers, _body):
@@ -51,32 +108,40 @@ func _process(_delta):
 	else:
 		$Leitor.position = Vector2(-10000, -10000)
 
-#funçao para modificar o audio no slider
+# Função para modificar o volume da música de fundo no slider (mantendo os demais sons inalterados)
 func _on_v_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(master_vol , value)
-	if value == -20:
+	if value <= -20.0:
 		volume_ligado = false
-		AudioServer.set_bus_mute(master_vol , true)
+		if has_node("SomDeFundo"):
+			$SomDeFundo.volume_db = -80.0
 		$Menu/button_volume/Volume_OFF.visible = true
 		$Menu/button_volume/Volume_ON.visible = false
-	
 	else:
 		volume_ligado = true
 		som = value
-		AudioServer.set_bus_mute(master_vol , false)
+		if has_node("SomDeFundo"):
+			$SomDeFundo.volume_db = value
 		$Menu/button_volume/Volume_ON.visible = true
 		$Menu/button_volume/Volume_OFF.visible = false
 
 
 func _on_button_volume_pressed() -> void:
 	$Timer_volume.stop()
-	if volume_ligado == true && som != -20:
+	if volume_ligado:
 		$Menu/button_volume/Volume_OFF.visible = true
-		$Menu/VSlider.value = -20
+		$Menu/button_volume/Volume_ON.visible = false
+		$Menu/VSlider.value = -20.0
+		if has_node("SomDeFundo"):
+			$SomDeFundo.volume_db = -80.0
 		volume_ligado = false 
 	else:
 		$Menu/button_volume/Volume_OFF.visible = false
+		$Menu/button_volume/Volume_ON.visible = true
+		if som <= -20.0:
+			som = -7.0
 		$Menu/VSlider.value = som
+		if has_node("SomDeFundo"):
+			$SomDeFundo.volume_db = som
 		volume_ligado = true
 
 

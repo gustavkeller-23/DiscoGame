@@ -121,6 +121,8 @@ horizontal_alignment = 1
 
 [node name="Timer_volume" type="Timer" parent="."]
 
+[node name="SomDeFundo" type="AudioStreamPlayer" parent="."]
+
 [connection signal="mouse_entered" from="Menu/button_volume" to="." method="_on_button_volume_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/button_volume" to="." method="_on_button_volume_mouse_exited"]
 [connection signal="pressed" from="Menu/button_volume" to="." method="_on_button_volume_pressed"]

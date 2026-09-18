@@ -36,6 +36,7 @@ const SWIPE_THRESHOLD: float = 40.0
 
 
 func _ready() -> void:
+	Menu.tocar_game()
 	montarTabuleiro()
 	atualizar_etapas()
 
@@ -213,6 +214,7 @@ func averiguarResposta(index: int) -> void:
 			$ChangeSetup.stop()
 			Global.Score = int($Pontos.qtdPontos())
 			Global.JogoConcluido = true
+			Menu.parar_musica()
 			$WinEnd.ganhou()
 			await get_tree().create_timer(5.0).timeout
 			atribuir_medalaha()
